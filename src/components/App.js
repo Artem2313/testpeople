@@ -5,6 +5,7 @@ import Nav from '../Nav/Nav';
 import SignUpPage from '../pages/SignUpPage';
 import UsersPage from '../pages/UsersPage';
 import * as usersOperations from '../redux/users/usersOperations';
+import UserPage from '../pages/UserPage';
 
 import './App.css';
 
@@ -20,8 +21,8 @@ class App extends Component {
         <Nav />
         <Switch>
           <Route exact path="/" component={SignUpPage} />
-          <Route path="/users" component={UsersPage} />
-          {/* <Route path="/users/:id" component={UserPage} />       */}
+          <Route exact path="/users" component={UsersPage} />
+          <Route path="/users/:uuid" component={UserPage} />
         </Switch>
       </div>
     );

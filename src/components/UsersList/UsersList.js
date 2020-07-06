@@ -1,9 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import * as usersSelectors from '../../redux/users/usersSelectors';
 import * as usersActions from '../../redux/users/usersActions';
 
-const UsersList = ({ users, onChange, surnameFilter, onSortBy, sortBy }) => (
+const UsersList = ({
+  users,
+  onChange,
+  surnameFilter,
+  onSortBy,
+  sortBy,
+  match,
+  location,
+}) => (
   <div>
     <h1>Hellow from users</h1>
     <div>
@@ -47,7 +56,14 @@ const UsersList = ({ users, onChange, surnameFilter, onSortBy, sortBy }) => (
           <p>{user.email}</p>
           <p>{user.dob.date.slice(0, 10)}</p>
           <p>{user.dob.age}</p>
-          <button type="button">Details</button>
+          <Link
+            to={{
+              pathname: `${match.path}/${user.login.uuid}`,
+              state: { from: location },
+            }}
+          >
+            <button type="button">Details</button>
+          </Link>
         </li>
       ))}
     </ul>
@@ -64,4 +80,7 @@ const mapDispatchToProps = {
   onSortBy: usersActions.sortBy,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(UsersList));
